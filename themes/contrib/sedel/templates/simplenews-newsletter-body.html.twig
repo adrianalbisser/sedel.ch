@@ -48,10 +48,6 @@
         div.views-field-view-node a, td.views-field.views-field-view-node h4 span a, div.views-row span.views-field.views-field-view-node h4.field-content span a {
           text-decoration: none; color:#dc4731 !important;
         }
-      /*  td.views-field.views-field-view-node h4 {
-          margin:4px 0px;
-          padding-left: 8px;*/
-        }
        a[style] {
            color:#dc4731 !important;
         }
@@ -95,6 +91,9 @@
         /* What it does: Uses a better rendering method when resizing images in IE. */
         img {
             -ms-interpolation-mode:bicubic;
+            max-width: 100% !important;
+            height: auto !important;
+            border: 0;
         }
 
         /* What it does: A work-around for email clients meddling in triggered links. */
@@ -127,15 +126,6 @@
             text-decoration: none !important;
         }
 
-        /* What it does: Removes right gutter in Gmail iOS app: https://github.com/TedGoas/Cerberus/issues/89  */
-        /* Create one of these media queries for each additional viewport size you'd like to fix */
-        /* Thanks to Eric Lepetit @ericlepetitsf) for help troubleshooting */
-        @media only screen and (min-device-width: 375px) and (max-device-width: 413px) { /* iPhone 6 and 6+ */
-            .email-container {
-                min-width: 375px !important;
-            }
-        }
-
         /* What it does: Hover styles for buttons */
         .button-td,
         .button-a {
@@ -147,12 +137,22 @@
             border-color: #555555 !important;
         }
 
-        @media only screen and (max-width: 480px){
-               html, body, p, span, a {font-size:28px !important; line-height:36px;}
-               h2 span a {font-size:36px !important; line-height:44px;}
-               h4 span a {font-size:32px !important; line-height:40px;}
-               div.flyer {margin-bottom:64px !important;}
-             }
+        /* What it does: Lets the fixed-width desktop layout shrink to the screen width. */
+        @media only screen and (max-width: 680px) {
+            table.wrapper,
+            table.container {
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+            td.mobile {
+                width: auto !important;
+                padding-left: 16px !important;
+                padding-right: 16px !important;
+            }
+            h2 span, h2 span a {font-size:22px !important; line-height:28px !important;}
+            div.flyer {margin-bottom:40px !important;}
+            .newsletter-footer {font-size:14px !important;}
+        }
         /* Media Queries */
 
     </style>
@@ -180,31 +180,33 @@
         <tr>
             <td align="center" valign="top">
 
-              <table width="680" cellpadding="0" cellspacing="0" border="0" class="wrapper" bgcolor="#000000">
+              <!--[if mso]><table width="680" cellpadding="0" cellspacing="0" border="0" align="center"><tr><td><![endif]-->
+              <table width="100%" cellpadding="0" cellspacing="0" border="0" class="wrapper" bgcolor="#000000" style="width:100%; max-width:680px;">
   <tr>
     <td align="center" valign="top">
 
-      <table width="600" align="center" cellpadding="0" cellspacing="0" border="0" class="container" border="0"  bgcolor="#000000">
+      <!--[if mso]><table width="600" cellpadding="0" cellspacing="0" border="0" align="center"><tr><td><![endif]-->
+      <table width="100%" align="center" cellpadding="0" cellspacing="0" border="0" class="container" bgcolor="#000000" style="width:100%; max-width:600px;">
         <tr>
-          <td width="600" class="mobile" align="left" valign="top">
+          <td class="mobile" align="left" valign="top" style="padding:0 16px;">
 
             {{ build }}
 
             </td>
           </tr>
           <tr>
-            <td width="600" class="mobile" align="center" valign="top">
+            <td class="mobile" align="center" valign="top" style="padding:0 16px;">
     {% if not opt_out_hidden %}
                 {% if format == 'html' %}
 
                     <p class="newsletter-footer" style="font-size:0.9rem; line-height:2; border-top:1px solid #FFFFFF;  margin-top:32px; padding-top:32px; color:#FFFFFF;font-family: 'Heebo','Helvetica', sans-serif;">ILM Sedel  |  Sedelhof 2  |  CH-6020 Emmenbrücke  |  +41 (0)41 508 19 51 <br />
-                      <a style="text-decoration:none;"href="http://www.sedel.ch"><span style="color:#dc4731;">www.sedel.ch</span></a>  | <a style="text-decoration:none;" href="mailto:sedel@sedel.ch"><span style="color:#dc4731;">sedel@sedel.ch</span></a><br />
+                      <a style="text-decoration:none;"href="https://www.sedel.ch"><span style="color:#dc4731;">www.sedel.ch</span></a>  | <a style="text-decoration:none;" href="mailto:sedel@sedel.ch"><span style="color:#dc4731;">sedel@sedel.ch</span></a><br />
 
                       <br />
                       Du erhältst diesen Newsletter, weil du ihn auf sedel.ch abonniert hast. <br /> <a style="text-decoration:none;" href="[simplenews-subscriber:unsubscribe-url]"><span style="color:#dc4731;">Ich möchte mich vom Newsletter abmelden.</span></a><br />
 
                       <br />
-                      <img alt="Going underground" src="http://sedel.ch/sites/default/files/inline-images/footer_2.png">
+                      <img alt="Going underground" src="https://sedel.ch/sites/default/files/inline-images/footer_2.png">
                     </p>
 
                 {% else %}
@@ -217,10 +219,12 @@
           </td>
         </tr>
       </table>
+      <!--[if mso]></td></tr></table><![endif]-->
 
     </td>
   </tr>
 </table>
+              <!--[if mso]></td></tr></table><![endif]-->
 
             </td>
         </tr>
