@@ -1,0 +1,61 @@
+# Deploy sedel.ch auf Green per FTP(S)
+#
+# Lädt bei jedem Push auf main nur geänderte Dateien nach /httpdocs hoch.
+# Der Abgleich läuft über .ftp-deploy-sync-state.json auf dem Server;
+# beim allerersten Lauf fehlt diese Datei, dann wird einmal alles hochgeladen.
+#
+# Benötigte Secrets (GitHub → Settings → Secrets and variables → Actions):
+#   FTP_SERVER    web3.servicehoster.ch
+#   FTP_USERNAME  h203408_user
+#   FTP_PASSWORD  (FTP-Passwort)
+
+name: Deploy to Green
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Nur anzeigen, was hochgeladen würde (nichts ändern)"
+        type: boolean
+        default: true
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: FTP-Deploy
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          port: 21
+          server-dir: /httpdocs/
+          dry-run: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run }}
+          log-level: standard
+          exclude: |
+            **/.git*
+            **/.git*/**
+            .github/**
+            .ddev/**
+            .vscode/**
+            **/node_modules/**
+            **/.DS_Store
+            sites/*/settings.php
+            sites/*/settings.local.php
+            sites/*/settings.ddev.php
+            sites/*/files/**
+            sites/*/private/**
+            *.sql
+            *.sql.gz
