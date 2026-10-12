@@ -1,0 +1,9 @@
+{
+  "name": "drupal/simplenews_scheduler",
+  "description": "Allows a schedule to be set for sending (and resending) a Simplenews item.",
+  "type": "drupal-module",
+  "license": "GPL-2.0-or-later",
+  "require": {
+    "drupal/simplenews": "^3.0"
+  }
+}

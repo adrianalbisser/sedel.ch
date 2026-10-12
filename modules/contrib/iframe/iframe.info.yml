@@ -1,0 +1,16 @@
+name: Iframe
+type: module
+description: 'Defines simple iframe field type.'
+package: Field types
+# version: 8.x-0.2
+# core: 8.x
+dependencies:
+  - field
+  - link
+required: false
+
+# Information added by Drupal.org packaging script on 2017-02-14
+version: '8.x-1.7'
+core: '8.x'
+project: 'iframe'
+datestamp: 1487115785

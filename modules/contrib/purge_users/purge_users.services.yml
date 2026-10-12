@@ -1,0 +1,4 @@
+services:
+  purge_users.user_management:
+    class: Drupal\purge_users\Services\UserManagementService
+    arguments: ['@current_user', '@config.factory', '@module_handler', '@messenger']

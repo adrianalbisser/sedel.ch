@@ -1,0 +1,13 @@
+name: 'Simplenews Scheduler'
+description: 'Allows a schedule to be set for sending (and resending) a Simplenews item.'
+core: 8.x
+core_version_requirement: ^8 || ^9
+package: Mail
+dependencies:
+  - simplenews:simplenews (>=3.x)
+type: module
+
+# Information added by Drupal.org packaging script on 2022-08-22
+version: '2.0.0-alpha1+3-dev'
+project: 'simplenews_scheduler'
+datestamp: 1661155043

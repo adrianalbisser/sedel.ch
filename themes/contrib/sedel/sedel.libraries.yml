@@ -1,0 +1,12 @@
+global:
+  version: VERSION
+  css:
+    base:
+      css/sedel.css: {}
+  js:
+    js/sedel.js: {}
+
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/modernizr

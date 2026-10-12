@@ -1,0 +1,48 @@
+# sedel.ch – Drupal 9 (legacy layout, docroot = Projekt-Root)
+#
+# Core, Contrib-Module, Libraries und vendor/ werden bewusst MITversioniert:
+# Die Module sind nicht über Composer installiert, ein `composer install`
+# würde den Stand also nicht wiederherstellen.
+
+# --- Secrets & umgebungsspezifische Settings ---------------------------------
+/sites/*/settings.php
+/sites/*/settings.local.php
+/sites/*/settings.ddev.php
+/sites/*/services.local.yml
+/.vscode/sftp.json
+.env
+
+# --- Uploads, generierte Dateien, private Files ------------------------------
+/sites/*/files/
+/sites/*/private/
+/sites/simpletest/
+
+# --- Datenbank-Dumps & Backups ------------------------------------------------
+*.sql
+*.sql.gz
+*.mysql
+/backups/
+
+# --- Liegengebliebene Archive in Modul-Ordnern -------------------------------
+/modules/*.zip
+/modules/contrib/*.zip
+/modules/contrib/*.tar.gz
+/themes/contrib/*.zip
+
+# --- Build-Artefakte / Tooling -----------------------------------------------
+node_modules/
+.sass-cache/
+/themes/contrib/sedel/.sass-cache/
+
+# --- Logs ---------------------------------------------------------------------
+*.log
+error_log
+
+# --- OS & Editor ---------------------------------------------------------------
+.DS_Store
+._*
+Thumbs.db
+desktop.ini
+.idea/
+*.swp
+*~

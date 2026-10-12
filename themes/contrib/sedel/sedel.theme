@@ -1,0 +1,88 @@
+<?php
+
+// Add your custom theme override functions here.
+
+/**
+ * Implements hook_preprocess_block()
+ */
+function sedel_preprocess_block(&$variables) {
+  if ($variables['plugin_id'] == 'commerce_cart') {
+    if ($variables['content']['#count'] == 0) {
+      $variables['attributes']['class'][] = 'visually-hidden';
+    }
+  }
+}
+
+
+/**
+ * Implements template_preprocess_field().
+ */
+function sedel_preprocess_field(&$variables) {
+}
+
+/**
+ * Implements template_preprocess_html().
+ *
+ * Adds additional classes
+ */
+function sedel_preprocess_html(&$variables) {
+}
+
+/**
+ * Implements template_preprocess_node
+ *
+ * Add template suggestions and classes
+ */
+function sedel_preprocess_node(&$variables) {
+}
+
+/**
+ * Implements template_preprocess_page
+ *
+ * Add convenience variables and template suggestions
+ */
+function sedel_preprocess_page(&$variables) {
+}
+
+/**
+ * Implements template_preprocess_views_view().
+ */
+function sedel_preprocess_views_view(&$variables) {}
+
+function sedel_preprocess_menu(&$variables, $hook) {
+  if ($hook == 'menu') {
+    $current_path = \Drupal::request()->getRequestUri();
+    $items = $variables['items'];
+
+    foreach ($items as $key => $item) {
+      // Set active to dom element if path of menu item matches current path
+      if ($item['url']->toString() == $current_path) {
+        // Add active link.
+        $variables['items'][$key]['attributes']['class'][] = 'active';
+      } else {
+        // Set active to dom element if path of menu item matches first part of current path
+        $url_fragments = explode('/', $current_path);
+        if (count($url_fragments) > 1 AND '/' . $url_fragments[1] == $item['url']->toString()) {
+          $variables['items'][$key]['attributes']['class'][] = 'active';
+        }
+      }
+    }
+  }
+}
+
+
+function sedel_preprocess_uc_catalog_block(array $variables) {
+  $menu_tree = $variables['menu_tree'];
+
+  $output = '<ul class="catalog menu test">';
+
+  foreach ($menu_tree->getChildren() as $branch) {
+    list($inpath, $html) = _uc_catalog_navigation($branch);
+    $output .= $html;
+  }
+
+  $output .= '</ul>';
+
+  return $output;
+}
+
