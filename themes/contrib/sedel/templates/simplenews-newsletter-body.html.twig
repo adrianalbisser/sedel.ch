@@ -35,7 +35,11 @@
                       <a style="text-decoration:none;"href="https://www.sedel.ch"><span style="color:#dc4731;">www.sedel.ch</span></a>  | <a style="text-decoration:none;" href="mailto:sedel@sedel.ch"><span style="color:#dc4731;">sedel@sedel.ch</span></a><br />
 
                       <br />
-                      Du erhältst diesen Newsletter, weil du ihn auf sedel.ch abonniert hast. <br /> <a style="text-decoration:none;" href="[simplenews-subscriber:unsubscribe-url]"><span style="color:#dc4731;">Ich möchte mich vom Newsletter abmelden.</span></a><br />
+                      {% if key == 'test' %}
+                        {{ test_message }}<br />
+                      {% else %}
+                        Du erhältst diesen Newsletter, weil du ihn auf sedel.ch abonniert hast. <br /> <a style="text-decoration:none;" href="[simplenews-subscriber:unsubscribe-url]"><span style="color:#dc4731;">Ich möchte mich vom Newsletter abmelden.</span></a><br />
+                      {% endif %}
 
                       <br />
                       <img width="288" style="display:block; width:288px; max-width:100%; height:auto; border:0; margin:0 auto;" alt="Going underground" src="https://sedel.ch/sites/default/files/inline-images/footer_2.png">
@@ -66,6 +70,10 @@
 {% else %}
 {{ build }}
 {% if not opt_out_hidden %}
+{% if key == 'test' %}
+{{ test_message }}
+{% else %}
 {{ unsubscribe_text }} : [simplenews-subscriber:unsubscribe-url]
+{% endif %}
 {% endif %}
 {% endif %}
